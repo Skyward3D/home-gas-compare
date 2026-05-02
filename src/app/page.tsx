@@ -30,7 +30,8 @@ export default function Home() {
 
   function handlePostcodeChange(value: string) {
     setPostcodeInput(value);
-    if (value.length > 0 && !/^\d{4}$/.test(value)) {
+    // Only show a validation error once the user has typed at least 4 characters
+    if (value.length >= 4 && !/^\d{4}$/.test(value)) {
       setPostcodeError("Postcode must be exactly 4 digits.");
     } else {
       setPostcodeError("");

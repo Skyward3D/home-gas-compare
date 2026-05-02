@@ -94,6 +94,9 @@ const MOCK_PLANS: GasPlan[] = [
   },
 ];
 
+// Note: energyMadeEasyUrl uses the generic Energy Made Easy homepage for now.
+// Once connected to real AER plan data, replace with plan-specific deep-links.
+
 // ---------------------------------------------------------------------------
 // Data layer API
 // ---------------------------------------------------------------------------

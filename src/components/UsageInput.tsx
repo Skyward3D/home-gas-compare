@@ -24,10 +24,18 @@ export default function UsageInput({ dailyUsageMJ, onChange }: Props) {
     }
   }
 
+  function switchMode(newMode: InputMode) {
+    if (newMode !== "bill") {
+      setBillTotalMJ("");
+      setBillDays("");
+    }
+    setMode(newMode);
+  }
+
   function handleBillChange(totalMJRaw: string, daysRaw: string) {
     const total = parseFloat(totalMJRaw) || 0;
     const days = parseFloat(daysRaw) || 0;
-    if (total > 0 && days > 0) {
+    if (total > 0 && days >= 1) {
       onChange(total / days);
     } else {
       onChange(0);
@@ -54,7 +62,7 @@ export default function UsageInput({ dailyUsageMJ, onChange }: Props) {
       <div className="flex gap-2 mb-4">
         <button
           type="button"
-          onClick={() => setMode("daily")}
+          onClick={() => switchMode("daily")}
           className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
             mode === "daily"
               ? "bg-blue-600 text-white border-blue-600"
@@ -65,7 +73,7 @@ export default function UsageInput({ dailyUsageMJ, onChange }: Props) {
         </button>
         <button
           type="button"
-          onClick={() => setMode("annual")}
+          onClick={() => switchMode("annual")}
           className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
             mode === "annual"
               ? "bg-blue-600 text-white border-blue-600"
@@ -76,7 +84,7 @@ export default function UsageInput({ dailyUsageMJ, onChange }: Props) {
         </button>
         <button
           type="button"
-          onClick={() => setMode("bill")}
+          onClick={() => switchMode("bill")}
           className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
             mode === "bill"
               ? "bg-blue-600 text-white border-blue-600"

@@ -1,12 +1,13 @@
 # 🔥 Home Gas Plan Comparator
 
-A Next.js web app for comparing Australian residential gas plans, starting with Wollongong NSW (postcode 2500).
+A Next.js web app for comparing Australian residential gas plans.
 
 ## Features
 
+- **Postcode input** — enter your 4-digit postcode (default 2500) to filter plans for your area. If no plans match, all demo plans are shown with a clear warning.
 - **Current Plan** — enter your retailer name, plan name, supply charge (¢/day) and usage rate (¢/MJ).
-- **Usage Input** — enter your average gas consumption in MJ/day or MJ/year.
-- **Comparison Table** — shows all available plans sorted cheapest first with estimated annual costs and potential savings vs your current plan.
+- **Usage Input** — enter your average gas consumption in MJ/day, MJ/year, or via a **Bill period** (total MJ over a billing period ÷ days → daily MJ).
+- **Comparison Table** — shows all available plans sorted cheapest first with estimated annual costs, potential savings vs your current plan, and links to each retailer's plan page and Energy Made Easy.
 - **Pluggable data layer** — swap the mock dataset for the [Energy Made Easy API](https://www.energymadeeasy.gov.au) when ready.
 
 ## Getting Started

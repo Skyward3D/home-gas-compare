@@ -23,6 +23,8 @@ const MOCK_PLANS: GasPlan[] = [
     supplyChargeCentsPerDay: 82.5,
     usageRates: [{ label: "Usage", rateCentsPerMJ: 2.156 }],
     notes: "No lock-in contract.",
+    retailerUrl: "https://www.agl.com.au/residential/gas/products",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
   {
     id: "origin-green-future",
@@ -36,6 +38,8 @@ const MOCK_PLANS: GasPlan[] = [
       { label: "Above 18 MJ/day", rateCentsPerMJ: 1.75 },
     ],
     notes: "100% carbon-offset natural gas. Tiered pricing.",
+    retailerUrl: "https://www.originenergy.com.au/gas/plans/",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
   {
     id: "energyaustralia-secure",
@@ -46,6 +50,8 @@ const MOCK_PLANS: GasPlan[] = [
     supplyChargeCentsPerDay: 78.0,
     usageRates: [{ label: "Usage", rateCentsPerMJ: 2.312 }],
     notes: "12-month fixed rate.",
+    retailerUrl: "https://www.energyaustralia.com.au/home/gas/plans",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
   {
     id: "alinta-everydays",
@@ -56,6 +62,8 @@ const MOCK_PLANS: GasPlan[] = [
     supplyChargeCentsPerDay: 85.0,
     usageRates: [{ label: "Usage", rateCentsPerMJ: 2.05 }],
     notes: "No exit fees.",
+    retailerUrl: "https://www.alintaenergy.com.au/nsw/gas",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
   {
     id: "lumo-smart-gas",
@@ -69,6 +77,8 @@ const MOCK_PLANS: GasPlan[] = [
       { label: "Above 14 MJ/day", rateCentsPerMJ: 1.95 },
     ],
     notes: "Pay-on-time discount available.",
+    retailerUrl: "https://www.lumoenergy.com.au/gas",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
   {
     id: "red-energy-living-saver",
@@ -79,6 +89,8 @@ const MOCK_PLANS: GasPlan[] = [
     supplyChargeCentsPerDay: 76.5,
     usageRates: [{ label: "Usage", rateCentsPerMJ: 2.28 }],
     notes: "Backed by Snowy Hydro. No lock-in.",
+    retailerUrl: "https://www.redenergy.com.au/gas/plans",
+    energyMadeEasyUrl: "https://www.energymadeeasy.gov.au",
   },
 ];
 

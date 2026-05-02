@@ -23,6 +23,10 @@ export interface GasPlan {
   usageRates: UsageRate[];
   /** Optional: plan notes / conditions */
   notes?: string;
+  /** Optional: link to the retailer's plan or gas products page */
+  retailerUrl?: string;
+  /** Optional: link to the Energy Made Easy listing for this plan */
+  energyMadeEasyUrl?: string;
 }
 
 /** What the user enters for their current plan */

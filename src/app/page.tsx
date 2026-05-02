@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import CurrentPlanForm from "@/components/CurrentPlanForm";
 import UsageInput from "@/components/UsageInput";
 import ComparisonTable from "@/components/ComparisonTable";
-import { getPlansByPostcode } from "@/data/plans";
+import { getPlansByPostcode, getAllPlans } from "@/data/plans";
 import { estimateAnnualCost, estimateCurrentPlanAnnualCost } from "@/lib/calculator";
 import { CurrentPlan, ComparisonResult } from "@/lib/types";
 
@@ -18,11 +18,28 @@ const DEFAULT_CURRENT_PLAN: CurrentPlan = {
 };
 
 export default function Home() {
+  const [postcode, setPostcode] = useState<string>(DEFAULT_POSTCODE);
+  const [postcodeInput, setPostcodeInput] = useState<string>(DEFAULT_POSTCODE);
+  const [postcodeError, setPostcodeError] = useState<string>("");
+  const [usingFallback, setUsingFallback] = useState(false);
   const [currentPlan, setCurrentPlan] = useState<CurrentPlan>(DEFAULT_CURRENT_PLAN);
   const [dailyUsageMJ, setDailyUsageMJ] = useState<number>(0);
   const [results, setResults] = useState<ComparisonResult[]>([]);
   const [currentAnnualCost, setCurrentAnnualCost] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  function handlePostcodeChange(value: string) {
+    setPostcodeInput(value);
+    // Only show a validation error once the user has typed at least 4 characters
+    if (value.length >= 4 && !/^\d{4}$/.test(value)) {
+      setPostcodeError("Postcode must be exactly 4 digits.");
+    } else {
+      setPostcodeError("");
+      if (/^\d{4}$/.test(value)) {
+        setPostcode(value);
+      }
+    }
+  }
 
   const runComparison = useCallback(async () => {
     if (dailyUsageMJ <= 0) {
@@ -33,7 +50,13 @@ export default function Home() {
 
     setIsLoading(true);
     try {
-      const plans = await getPlansByPostcode(DEFAULT_POSTCODE);
+      let plans = await getPlansByPostcode(postcode);
+      let fallback = false;
+      if (plans.length === 0) {
+        plans = await getAllPlans();
+        fallback = true;
+      }
+      setUsingFallback(fallback);
 
       const hasCurrentPlanRates =
         currentPlan.supplyChargeCentsPerDay > 0 ||
@@ -62,7 +85,7 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }, [currentPlan, dailyUsageMJ]);
+  }, [currentPlan, dailyUsageMJ, postcode]);
 
   useEffect(() => {
     runComparison();
@@ -78,11 +101,42 @@ export default function Home() {
           <p className="mt-2 text-gray-500 text-sm">
             Comparing plans available in{" "}
             <span className="font-semibold text-gray-700">
-              Wollongong NSW (2500)
+              Postcode {postcode}
             </span>{" "}
             · Distributor: Jemena Gas Networks
           </p>
         </header>
+
+        {/* Postcode input */}
+        <section className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            📍 Your Postcode
+          </h2>
+          <div className="flex items-center gap-3">
+            <input
+              type="text"
+              inputMode="numeric"
+              maxLength={4}
+              placeholder="e.g. 2500"
+              value={postcodeInput}
+              onChange={(e) => handlePostcodeChange(e.target.value)}
+              className="w-32 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <span className="text-sm text-gray-500">
+              Enter your 4-digit postcode to filter available plans.
+            </span>
+          </div>
+          {postcodeError && (
+            <p className="mt-2 text-sm text-red-500">{postcodeError}</p>
+          )}
+        </section>
+
+        {usingFallback && !postcodeError && (
+          <div className="bg-amber-50 border border-amber-300 rounded-xl px-5 py-3 text-sm text-amber-800">
+            ⚠️ No plans found for postcode <strong>{postcode}</strong> in the
+            mocked dataset — showing all available demo plans instead.
+          </div>
+        )}
 
         <CurrentPlanForm currentPlan={currentPlan} onChange={setCurrentPlan} />
 
@@ -110,3 +164,4 @@ export default function Home() {
     </main>
   );
 }
+

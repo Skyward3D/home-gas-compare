@@ -84,6 +84,7 @@ export default function ComparisonTable({
                 vs. current
               </th>
               <th className="px-4 py-3 border-b border-gray-200">Notes</th>
+              <th className="px-4 py-3 border-b border-gray-200">Links</th>
             </tr>
           </thead>
           <tbody>
@@ -148,6 +149,29 @@ export default function ComparisonTable({
                   <td className={`px-4 py-3 ${savingColor}`}>{savingText}</td>
                   <td className="px-4 py-3 text-gray-400 text-xs max-w-[160px]">
                     {plan.notes ?? "—"}
+                  </td>
+                  <td className="px-4 py-3 text-xs space-y-1 whitespace-nowrap">
+                    {plan.retailerUrl && (
+                      <a
+                        href={plan.retailerUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-blue-600 hover:underline"
+                      >
+                        Retailer ↗
+                      </a>
+                    )}
+                    {plan.energyMadeEasyUrl && (
+                      <a
+                        href={plan.energyMadeEasyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-blue-600 hover:underline"
+                      >
+                        Energy Made Easy ↗
+                      </a>
+                    )}
+                    {!plan.retailerUrl && !plan.energyMadeEasyUrl && "—"}
                   </td>
                 </tr>
               );

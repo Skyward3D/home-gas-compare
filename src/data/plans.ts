@@ -85,7 +85,7 @@ const MOCK_PLANS: GasPlan[] = [
     retailer: "Red Energy",
     planName: "Living Saver",
     distributor: "Jemena Gas Networks",
-    postcodes: ["2500", "2501", "2502", "2505", "2506"],
+    postcodes: ["2500", "2501", "2502", "2505", "2516"],
     supplyChargeCentsPerDay: 76.5,
     usageRates: [{ label: "Usage", rateCentsPerMJ: 2.28 }],
     notes: "Backed by Snowy Hydro. No lock-in.",
